@@ -1,14 +1,18 @@
 import React from 'react';
 import logo from './logo.svg';
 import { Counter } from './features/counter/Counter';
+import { Books } from './features/books/Books';
 import './App.css';
+import { ModalManager } from './app/components/Modal/ModalManager';
 
 function App() {
   return (
     <div className="App">
+      <ModalManager />
       <header className="App-header">
         <img src={logo} className="App-logo" alt="logo" />
         <Counter />
+        <Books />
         <p>
           Edit <code>src/App.tsx</code> and save to reload.
         </p>
