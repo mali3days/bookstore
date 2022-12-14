@@ -1,18 +1,18 @@
 // import React, { Children } from 'react';
-import {
-  hide,
-} from './modalSlice';
+import { hide } from './modalSlice';
 
 import styles from './Modal.module.css';
 
 import { useAppDispatch } from '../../../app/hooks';
 
 interface ModalProps {
+  id: string;
   title: string;
+  onSubmit: (a: any, b: any) => void;
   children: () => JSX.Element;
 }
 
-export function Modal({ children, title }: ModalProps) {
+export function Modal({ id, title, children, onSubmit }: ModalProps) {
   const dispatch = useAppDispatch();
 
   return (
@@ -26,21 +26,23 @@ export function Modal({ children, title }: ModalProps) {
           <button className={styles.closeBtn} onClick={() => dispatch(hide())}>
             <div style={{ marginBottom: '-3px' }}>x</div>
           </button>
-          <div className={styles.modalContent}>
-            {children()}
-          </div>
+          <div className={styles.modalContent}>{children()}</div>
           <div className={styles.modalActions}>
             <div className={styles.actionsContainer}>
               <button
+                form={id}
+                type="submit"
                 className={styles.deleteBtn}
-                onClick={() => dispatch(hide())}
+                onClick={(e) => {
+                  onSubmit(e, () => dispatch(hide())) as any; 
+                }}
               >
                 Delete
               </button>
               <button
-                className={styles.cancelBtn}
-                onClick={() => dispatch(hide())}
-              >
+                form={id}
+                type="reset"
+                className={styles.cancelBtn}              >
                 Cancel
               </button>
             </div>
